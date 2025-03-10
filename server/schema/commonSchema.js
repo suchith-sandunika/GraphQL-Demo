@@ -34,7 +34,9 @@ const mutation = new GraphQLObjectType({
                     );
 
                     if(updateStudentDetailsResult.rows.length == 0) {
-                        return 'Student not found';
+                        return {
+                            id: null
+                        };
                     } else {
                         return {
                             id: updateStudentDetailsResult.rows[0].id,

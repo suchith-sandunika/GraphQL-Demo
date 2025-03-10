@@ -22,4 +22,16 @@ const UPDATE_STUDENT_MARKS = gql`
     }
 `; 
 
-export default UPDATE_STUDENT_MARKS;
+const UPDATE_STUDENT_DATA = gql`
+    mutation UpdateStudentData($id: ID!, $firstName: String!, $lastName: String!, $age: Int!, $email: String!) {
+        updateStudentDetails(id: $id, firstName: $firstName, lastName: $lastName, age: $age,email: $email) {
+            id,
+            firstName,
+            lastName,
+            age,
+            email
+        }
+    }
+`;
+
+export { UPDATE_STUDENT_MARKS, UPDATE_STUDENT_DATA };

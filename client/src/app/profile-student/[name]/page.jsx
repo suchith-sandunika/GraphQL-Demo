@@ -6,7 +6,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import Swal from 'sweetalert2';
 import useSwicth from '@/hooks/useSwitch';
 import { STUDENT_DATA_BY_NAME } from '@/config/student/getQuery';
-import UPDATE_STUDENT_MARKS from '@/config/common/updateQuery';
+import { UPDATE_STUDENT_MARKS, UPDATE_STUDENT_DATA } from '@/config/common/updateQuery';
 import DELETE_STUDENT from '@/config/common/deleteQuery';
 import 'react-toastify/dist/ReactToastify.css';
 import useDevideName from '@/hooks/useDevideName';
@@ -45,11 +45,8 @@ const StudentProfile = () => {
         skip: !name, // Ensure valid input ...
     }); 
 
-    const [updateStudentMarks] = useMutation(UPDATE_STUDENT_MARKS, {
-        variables: {
-            
-        }
-    });
+    const [updateStudentMarks] = useMutation(UPDATE_STUDENT_MARKS);
+    const [updateStudentData] = useMutation(UPDATE_STUDENT_DATA);
     const [deleteStudentData] = useMutation(DELETE_STUDENT);
 
     useEffect(() => {
@@ -83,7 +80,7 @@ const StudentProfile = () => {
         }
     };
 
-    const handleUpdate = (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
         setLoadData(false);
         setUpdateButtonClicked(true);
@@ -92,6 +89,47 @@ const StudentProfile = () => {
     const handleConfirmUpdate = async (e) => {
         e.preventDefault();
         setUpdateButtonClicked(false);
+
+        if(firstName == '' || lastName == '' || email == '' || age == '') {
+            toast.error('Please fill all the details');
+            return;
+        }
+
+        Swal.fire({
+            title: 'Confirmation About Update',
+            text: 'Are you sure you want to update this Student Details?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Update'
+        }).then(async (result) => {
+            if(result.isConfirmed) {
+                try {
+                    const { data } = await updateStudentData({
+                        variables: {
+                            id: id,
+                            firstName: firstName,
+                            lastName: lastName,
+                            email: email,
+                            age: parseInt(age)
+                        }
+                    });
+        
+                    if(data?.updateStudentDetails?.id) {
+                        toast.success('Student Details Updated Successfully');
+                        setUpdateButtonClicked(false);
+                        setLoadData(true);
+                    } else {
+                        toast.error('Error Updating Student Details');
+                        return;
+                    }
+                } catch (error) {
+                    toast.error(error.message);
+                    return;
+                } 
+            }
+        });
     }
 
     const handleCancelUpdate = (e) => {
@@ -245,7 +283,7 @@ const StudentProfile = () => {
                 <div className="min-h-100 w-200 rounded-lg shadow-lg border border-gray-200 p-6 bg-white">
                     <h1 className="text-2xl font-bold text-center">Update Student Profile Data - {useSwicth(name)} </h1>
                     <form>
-                        <div className='pt-2 items-center justify-center'>
+                        {/* <div className='pt-2 items-center justify-center'>
                             <label className="block text-gray-700 text-sm font-bold mb-2">Student Image</label>
                             <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" type="file"  accept="image/*"  onChange={handleFileChange}/>
                             {selectedFile && (
@@ -253,7 +291,7 @@ const StudentProfile = () => {
                                     <img src={selectedFile} alt="Preview" className="mt-2 w-20 h-20 rounded-md items-center object-cover"/>
                                 </div>
                             )}
-                        </div>
+                        </div> */}
                         <div className='pt-2 items-center justify-center'>
                             <label className="block text-gray-700 text-sm font-bold mb-2">Student First Name</label>
                             <input className="w-full items-center border border-gray-300 px-2 py-2 text-gray-700 rounded-lg" type="text" placeholder="Enter First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
