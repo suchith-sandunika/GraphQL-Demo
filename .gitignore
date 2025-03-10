@@ -1,0 +1,7 @@
+.qodo
+.vscode
+.idea
+.git
+node_modules
+.next
+.env
