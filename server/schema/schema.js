@@ -3,9 +3,10 @@ const { GraphQLSchema } = require('graphql');
 const studentSchema = require('./studentSchema');
 const teacherSchema = require('./teacherSchema');
 const commonSchema = require('./commonSchema');
+const additionalSchema = require('./additionalSchema');
 
 const mergedSchema = mergeSchemas({
-    schemas: [studentSchema, teacherSchema, commonSchema]
+    schemas: [studentSchema, teacherSchema, commonSchema, additionalSchema]
 });
 
 module.exports = mergedSchema;
