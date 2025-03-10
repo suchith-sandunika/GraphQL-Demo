@@ -24,15 +24,6 @@ const STUDENT_REGISTRATION = gql`
             createdAt
         }
     } 
-`;  
+`;   
 
-// Mutation related to logout ...
-const LOGOUT = gql`
-    mutation LogOut {
-        logout {
-            id
-        }
-    }
-`; 
-
-export { STUDENT_LOGIN, STUDENT_REGISTRATION, LOGOUT };
+export { STUDENT_LOGIN, STUDENT_REGISTRATION };

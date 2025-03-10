@@ -22,4 +22,4 @@ const UPDATE_STUDENT_MARKS = gql`
     }
 `; 
 
-export {  UPDATE_STUDENT_MARKS };
+export default UPDATE_STUDENT_MARKS;

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { STUDENT_LOGIN } from '@/config/authQuery';
+import { STUDENT_LOGIN } from '@/config/student/authQuery';
 import 'react-toastify/dist/ReactToastify.css'; 
 
 const StudentLogin = () => {
@@ -76,6 +76,7 @@ const StudentLogin = () => {
                         </button>
                     </div>
                     <p className='mt-2 text-center items-center'>Don't have an account? <a href='/signup-student' className='text-blue-400'>Sign Up</a></p>
+                    <p className='mt-2 text-center items-center'>Are You a Teacher? <a href='/login-teacher' className='text-blue-400'>Teacher Login</a></p>
                 </form>
                 <ToastContainer />
             </div>

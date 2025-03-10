@@ -4,10 +4,10 @@ import { gql } from '@apollo/client';
 const GET_STUDENTS = gql`
     query GetStudents {
         students {
-            id
-            firstName
-            lastName
-            email
+            id,
+            firstName,
+            lastName,
+            email,
             age
         }
     }
@@ -35,6 +35,4 @@ const STUDENT_DATA_BY_NAME = gql`
     }
 `;
 
-
-
-export { GET_STUDENTS, STUDENT_DATA_BY_NAME, DELETE_STUDENT };
+export { GET_STUDENTS, STUDENT_DATA_BY_NAME };

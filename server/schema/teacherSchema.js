@@ -20,7 +20,6 @@ const RootQuery = new GraphQLObjectType({
                         firstName: row["First_Name"], // Ensure correct case
                         lastName: row["Last_Name"],
                         email: row["Email"],
-                        password: row["Password"],
                         createdAt: row["Created_Date"],
                     }));
                 } catch (error) {
@@ -65,17 +64,18 @@ const mutation = new GraphQLObjectType({
                     );
 
                     // send email after registration ...
-                    sendteacherEmail(args.email, args.firstName, args.lastName, ); 
+                    sendteacherEmail(args.email, args.firstName, args.lastName); 
                     
                     if(result.rows.length == 0) {
-                        return 'Registration Failed';
+                        return {
+                            id: null
+                        }
                     } else {
                         return {
                             id: result.rows[0].id,
                             firstName: result.rows[0].First_Name,
                             lastName: result.rows[0].Last_Name,
                             email: result.rows[0].Email,
-                            password: result.rows[0].Password,
                             createdAt: result.rows[0].Created_Date
                         };
                     }

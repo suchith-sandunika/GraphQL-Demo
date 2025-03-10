@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { STUDENT_REGISTRATION } from '@/config/authQuery';
+import { STUDENT_REGISTRATION } from '@/config/student/authQuery';
 import useJoinName from '@/hooks/useJoinName';
 import UpdateSubjectMarks from '../update-subject-marks/page';
 import 'react-toastify/dist/ReactToastify.css';
@@ -97,7 +97,7 @@ const StudentSignUp = () => {
                             <input className="w-full items-center border border-gray-300 px-2 py-2 text-gray-700 rounded-lg" type="text" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                         </div>
                         <div className='pt-2 items-center justify-center'>
-                            <label className="block text-gray-700 text-sm font-bold mb-2">Age(In Years)</label>
+                            <label className="block text-gray-700 text-sm font-bold mb-2">Age ( In Years )</label>
                             <input className="w-full items-center border border-gray-300 px-2 py-2 text-gray-700 rounded-lg" type="number" placeholder="Enter Age" value={age} onChange={(e) => setAge(e.target.value)}/>
                         </div>
                         <div className='pt-2 items-center justify-center'>

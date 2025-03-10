@@ -5,7 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { UPDATE_STUDENT_MARKS } from '@/config/updateQuery';
-import { STUDENT_DATA_BY_NAME } from '@/config/getQuery';
+import { STUDENT_DATA_BY_NAME } from '@/config/student/getQuery';
 import useDevideName from '@/hooks/useDevideName';
 import 'react-toastify/dist/ReactToastify.css';
 

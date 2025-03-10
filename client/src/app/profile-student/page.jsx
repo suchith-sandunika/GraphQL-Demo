@@ -6,8 +6,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import Image from 'next/image';
 import useJoinName from '@/hooks/useJoinName';
-import { LOGOUT } from '@/config/authQuery';
-import { GET_STUDENTS } from '@/config/getQuery';
+import LOGOUT from '@/config/common/authQuery';
+import { GET_STUDENTS } from '@/config/student/getQuery';
 import userImg from '@/assets/user.png';
 
 const Students = () => {

@@ -1,6 +1,9 @@
 'use client';
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { ToastContainer, toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+import { TEACHER_REGISTRATION } from '@/config/teacher/authQuery';
 import 'react-toastify/dist/ReactToastify.css';
 
 const TeacherSignUp = () => {
@@ -10,8 +13,13 @@ const TeacherSignUp = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSignUp = (e) => {
+    const router = useRouter();
+
+    const [registerTeacher] = useMutation(TEACHER_REGISTRATION);
+
+    const handleSignUp = async (e) => {
         e.preventDefault();
+
         if(firstName == '' || lastName == '' || email == '' || password == '' || confirmPassword == '') {
             toast.error('Please enter all the details');
             return;
@@ -27,7 +35,33 @@ const TeacherSignUp = () => {
         console.log('Email:', email);
         console.log('Password:', password);
         console.log('Confirm Password:', confirmPassword);
+
+        try {
+            const { data } = await registerTeacher({
+                variables: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    password: password
+                }
+            });
+
+            console.log(data.teacherRegister.id);
+
+            if(data?.teacherRegister?.id) {
+                toast.success('Sign Up Successful');
+                router.push('/profile-student');
+            } else {
+                toast.error('Error signing up');
+                return;
+            }
+        } catch (error) {
+            toast.error(error);
+            console.error(error);
+            return;
+        }
     }
+
     return (
         <div className="h-screen flex items-center justify-center">
             <div className="w-100 rounded-lg shadow-lg border border-gray-200 p-6 bg-white">

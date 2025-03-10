@@ -5,16 +5,16 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useMutation, useQuery } from '@apollo/client';
 import Swal from 'sweetalert2';
 import useSwicth from '@/hooks/useSwitch';
-import { STUDENT_DATA_BY_NAME } from '@/config/getQuery';
-import { UPDATE_STUDENT_MARKS } from '@/config/updateQuery';
-import DELETE_STUDENT from '@/config/deleteQuery';
+import { STUDENT_DATA_BY_NAME } from '@/config/student/getQuery';
+import UPDATE_STUDENT_MARKS from '@/config/common/updateQuery';
+import DELETE_STUDENT from '@/config/common/deleteQuery';
 import 'react-toastify/dist/ReactToastify.css';
+import useDevideName from '@/hooks/useDevideName';
 
 const StudentProfile = () => {
     const { name } = useParams();
     const router = useRouter();
-    const studentFirstName = name.split('%20')[0];
-    const studentLastName = name.split('%20')[1];
+    const arr = useDevideName(name);
 
     const [loadData, setLoadData] = useState(true);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -39,10 +39,10 @@ const StudentProfile = () => {
 
     const { data, loading, error } = useQuery(STUDENT_DATA_BY_NAME, {
         variables: { 
-            firstName: studentFirstName, 
-            lastName: studentLastName 
+            firstName: arr[0], 
+            lastName: arr[1] 
         },
-        skip: !studentFirstName || !studentLastName, // Ensure valid input ...
+        skip: !name, // Ensure valid input ...
     }); 
 
     const [updateStudentMarks] = useMutation(UPDATE_STUDENT_MARKS, {
